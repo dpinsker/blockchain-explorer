@@ -54,8 +54,6 @@ class SyncPlatform {
 	 * @memberof SyncPlatform
 	 */
 	async initialize(args) {
-		const _self = this;
-
 		logger.debug(
 			'******* Initialization started for child client process %s ******',
 			this.client_name
@@ -112,23 +110,22 @@ class SyncPlatform {
 			return;
 		}
 
-		setInterval(() => {
-			console.log('Updating the client network and other details to DB');
-			this.syncService.synchNetworkConfigToDB(this.client);
-		}, 30000);
-
 		// Start event
 		this.eventHub = new FabricEvent(this.client, this.syncService);
 		await this.eventHub.initialize();
 
-		/*
-		 * Setting interval for validating any missing block from the current client ledger
-		 * Set blocksSyncTime property in platform config.json in minutes
-		 */
-		setInterval(() => {
-			_self.isChannelEventHubConnected();
-		}, this.blocksSyncTime);
-		logger.debug(
+		const sync = () => {
+			console.log(
+				`******************Synchronization at ${new Date()}******************`
+			);
+			this.eventHub.synchBlocks();
+			setTimeout(() => {
+				sync();
+			}, this.blocksSyncTime);
+		};
+
+		setTimeout(sync, this.blocksSyncTime);
+		console.log(
 			'******* Initialization end for child client process %s ******',
 			this.client_name
 		);
