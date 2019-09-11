@@ -120,8 +120,10 @@ class FabricClient {
 			logger.debug('this.defaultPeer ', this.defaultPeer);
 			channels = await this.hfc_client.queryChannels(this.defaultPeer, true);
 		} catch (e) {
-			logger.error(e);
+			console.error(e);
 		}
+
+		console.log(`******** CHANNELS ${channels}`);
 
 		if (channels) {
 			this.status = true;
@@ -844,16 +846,6 @@ class FabricClient {
 	 */
 	getDefaultOrderer() {
 		return this.defaultOrderer;
-	}
-
-	/**
-	 *
-	 *
-	 * @param {*} defaultPeer
-	 * @memberof FabricClient
-	 */
-	setDefaultPeer(defaultPeer) {
-		this.defaultPeer = defaultPeer;
 	}
 
 	/**
