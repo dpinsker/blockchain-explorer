@@ -188,6 +188,7 @@ class FabricEvent {
 	 */
 	async synchBlocks() {
 		// getting all channels list from client ledger
+		console.log(`Default peer ${JSON.stringify(this.client.getDefaultPeer())}`);
 		const channels = await this.client
 			.getHFC_Client()
 			.queryChannels(this.client.getDefaultPeer().getName(), true);
