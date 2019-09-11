@@ -123,8 +123,6 @@ class FabricClient {
 			console.error(e);
 		}
 
-		console.log(`******** CHANNELS ${channels}`);
-
 		if (channels) {
 			this.status = true;
 			logger.debug('Client channels >> %j', channels.channels);
@@ -279,9 +277,7 @@ class FabricClient {
 		}
 
 		this.defaultChannel = this.hfc_client.getChannel(default_channel_name);
-		if (this.defaultChannel.getPeers().length > 0) {
-			this.defaultPeer = this.defaultChannel.getPeer(default_peer_name);
-		}
+		this.defaultPeer = default_peer_name;
 
 		if (this.defaultChannel === undefined) {
 			throw new ExplorerError(explorer_mess.error.ERROR_2004);

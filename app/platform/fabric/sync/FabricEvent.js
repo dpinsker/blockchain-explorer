@@ -191,7 +191,7 @@ class FabricEvent {
 		console.log(`Default peer ${JSON.stringify(this.client.getDefaultPeer())}`);
 		const channels = await this.client
 			.getHFC_Client()
-			.queryChannels(this.client.getDefaultPeer().getName(), true);
+			.queryChannels(this.client.getDefaultPeer(), true);
 
 		for (const channel of channels.channels) {
 			const channel_name = channel.channel_id;
