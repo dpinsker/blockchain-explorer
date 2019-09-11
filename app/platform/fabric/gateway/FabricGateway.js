@@ -60,6 +60,7 @@ class FabricGateway {
 		logger.debug(info.toUpperCase());
 
 		const peers = this.fabricConfig.getPeers();
+		console.log(`********* Peers ${JSON.stringify(peers)}`);
 		this.defaultPeer = peers[0].name;
 		this.defaultPeerUrl = peers[0].url;
 		let orgMsp = [];
